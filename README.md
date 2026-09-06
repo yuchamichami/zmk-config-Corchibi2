@@ -31,7 +31,7 @@ lenoTP モジュールは PAW3222 とピン配置互換なので、スロット 
 
 ## ブランチの選び方
 
-利用者向けは **`main` と `dya-studio`** です。接続ガイドのための専用ブランチは不要で、各 README から参照できます。
+利用者向けは **`main` と `dya-studio`** です。各ブランチの README にセットアップ手順を記載しています。
 
 | ブランチ | 用途 |
 | --- | --- |
@@ -39,21 +39,77 @@ lenoTP モジュールは PAW3222 とピン配置互換なので、スロット 
 | [`dya-studio`](https://github.com/yuchamichami/zmk-config-Corcell/tree/dya-studio) | DYA Studio 対応版。ブラウザでキーマップやポインタ倍率を調整する方向け |
 | [`lenotp`](https://github.com/yuchamichami/zmk-config-Corcell/tree/lenotp) | lenoTP の実験用。通常の利用者向け配布版ではありません |
 
-## 接続・使い方
+## 初めての接続・セットアップ
 
-- **USB は右手側に挿します。** 右が親機で、左の入力も右から PC へ送ります。USB 使用時も左右間は Bluetooth 通信なので、左にも電源が必要です。
-- 初回 Bluetooth 接続は、USB を外し、左右の電源を入れます。初期配列では右親指のレイヤー 3 キー（Space と短押し A のキーの間）を押しながら右上端の Backspace 位置を押して接続先 0 を選び、OS の Bluetooth 設定で Corcell を追加します。
-- **USB の文字入力と Studio 接続は別機能です。** `main` と `lenotp` は Studio 非対応です。DYA Studio を使う場合は `dya-studio` のファームを選んでください。
-- DYA 接続改善版の初期配列では、レイヤー 3 ＋ U 位置で USB 優先、＋ I 位置で Bluetooth 優先、＋右親指の A 位置でブラウザの Bluetooth 検出を開始します。通常版・旧 DYA 版・保存済みの独自配列では同じ操作が使えるとは限りません。
-- `The port is already open` はまず Studio のタブを閉じ、USB を抜き差しして 1 タブだけで再接続します。全設定初期化を最初に行う必要はありません。
+**DYA Studio で設定を変えたい場合は、まず USB で接続すると手順が少なく済みます。**
+USB 接続のために、先に PC と Bluetooth ペアリングする必要はありません。
+文字を無線で入力したいだけなら、下の「Bluetooth でキーボードとして使う」へ進んでください。
+
+### キー操作の読み方
+
+「レイヤー 3 ＋ U」は、**レイヤー 3 キーを押したまま、U の位置のキーを 1 回押し、両方を離す**操作です。
+レイヤー 3 キーは、初期配列の **右親指の Space と、短押しで A になるキーの間**にあります。
+「3」と「U」を文字として入力する操作ではありません。
+以下の位置は初期配列基準です。Studio で配列を変更済みの場合は、ご自身の割り当てを確認してください。
+
+### A. USB で DYA Studio を使う（最初はこちら）
+
+**接続改善版の DYA ファームが入っていることが前提です。** `main`・`lenotp`・旧 DYA 版ではこの USB Studio 手順は使えません。
+未導入・版が不明な場合は、[ファーム更新手順](https://github.com/yuchamichami/zmk-config-Corcell/blob/dya-studio/docs/connection-guide.md#8-ファーム更新)を先に確認してください。
+
+1. **右手側**をデータ通信対応 USB ケーブルで PC につなぎます。左手も使う場合は、左側にも電池を入れて電源を入れます。
+2. **レイヤー 3 ＋ U 位置**を押して、文字入力と Studio 通信の出力先を **USB 優先**にします。
+3. PC の **Chrome または Edge** で [DYA Studio](https://studio.dya.cormoran.works/) を開きます。
+4. **USB 接続**を選び、Corcell の Studio 用シリアルポートを選択します。候補が 2 つあり一方で応答しない場合は、接続を閉じてもう一方を試してください。
+5. 配列などを編集し、画面の **保存**を押します。保存完了後、10 秒以上待ってから電源を切ります。
+
+**この USB 手順では Studio Unlock を押す必要はありません。** USB 経由で文字を打ちながら設定を編集できます。
+なお、USB 使用時も **左手から右手への通信は無線**です。
+
+### B. Bluetooth でキーボードとして使う
+
+この手順は通常版と DYA 版のどちらでも使えます。`lenotp` は実験構成での確認用です。
+
+1. USB を外し、左右に電池を入れて電源を入れます。
+2. **レイヤー 3 ＋右上端の Backspace 位置**を押して、接続先 0 を選びます。既に別端末を登録している場合は、ガイドを参照して空き接続先を選びます。
+3. PC／スマホの **OS の Bluetooth 設定**から **Corcell** を追加します。左右を別々に登録する必要はありません。
+4. メモ帳などで、右手と左手のキーが入力できることを確認します。
+
+**文字を打つだけなら、ここで完了です。DYA Studio を開いたり、Studio Unlock を押したりする必要はありません。**
+接続改善版で USB 給電を残したまま無線入力したい場合は、**レイヤー 3 ＋ I 位置**で Bluetooth 優先にします。
+
+### C. Bluetooth 経由で DYA Studio も使いたい場合
+
+接続改善版の DYA ファーム向けです。先に B の手順で、編集に使う PC と Bluetooth 接続し、文字入力ができる状態にします。
+
+1. USB は外しておきます。USB 給電を残す場合は、**レイヤー 3 ＋ I 位置**で Bluetooth 優先にします。
+2. **レイヤー 3 ＋右親指の短押し A の位置**を押します。これが **Studio Unlock** で、ブラウザから Corcell を見つけられるようにする操作です。
+3. 対応ブラウザで [DYA Studio](https://studio.dya.cormoran.works/) を開き、**Bluetooth 接続**から Corcell を選びます。
+4. 編集後に **保存**します。
+
+現在の DYA 版は起動時から設定変更のロックを解除しています。Bluetooth で押す Studio Unlock は、主に **ブラウザでの検出を開始するため**です。
+PC／ブラウザの対応状況も接続に影響します。検出で迷った場合は A の USB 手順で確認してください。
+
+### 迷ったときの早見表（接続改善版の初期配列）
+
+| やりたいこと | 操作 |
+| --- | --- |
+| USB で入力・Studio 編集 | 右に USB → レイヤー 3 ＋ U → Studio の USB 接続。Unlock 不要 |
+| Bluetooth で文字入力だけ | 接続先選択 → OS で Corcell を登録。Unlock 不要 |
+| Bluetooth で Studio 編集 | OS で入力確認 → USB を外す（またはレイヤー 3 ＋ I）→ Studio Unlock → Studio の Bluetooth 接続 |
+
+**レイヤー 3 ＋ U は USB 用です。Bluetooth 接続の前に押す操作ではありません。**
+旧 DYA 版や保存済みの独自配列には、新しい出力切替キーがない場合があります。
+
+### 接続・書き込みで困ったら
+
+- `The port is already open` はまず Studio のタブを閉じ、USB を抜き差しして 1 タブだけで再接続します。
 - UF2 は ZIP を展開し、右用を右、左用を左へ **1 ファイルずつ**コピーします。Windows の `0x80070022` だけでは書き込みの成否を判断せず、通常起動と更新版を確認してください。
-- `settings_reset` は保存済み配列・ペアリングなどを消す最終手段です。通常の更新では不要です。
+- `settings_reset` は保存済み配列・ペアリングなどを消す最終手段です。通常の接続や更新では不要です。
 
 **詳しい接続・更新・復旧手順： [接続・使い方ガイド](https://github.com/yuchamichami/zmk-config-Corcell/blob/dya-studio/docs/connection-guide.md)**
 
 [Discord 向け案内文](https://github.com/yuchamichami/zmk-config-Corcell/blob/dya-studio/docs/discord-connection-announcement.md) ／ [点検結果と実機確認項目](https://github.com/yuchamichami/zmk-config-Corcell/blob/dya-studio/docs/firmware-audit-2026-09-06.md)
-
-ガイド内の Studio 操作は DYA 版向けです。`lenotp` のセンサー調整や動作確認は実験用ブランチの説明を参照してください。
 
 ## セッティングガイド
 
